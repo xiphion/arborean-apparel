@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <script>window.module = module; module = undefined;</script>
+        <script src="js/jquery-3.2.0.slim.min.js"></script>
+        <script src="js/typeahead.bundle.min.js"></script>
+        <script>module = window.module;</script>
+        <script src="main.js"></script>
+    </head>
+    <body>
+        <div id="title-bar">
+            <img src="https://simplesalt.feedia.co/shared/icon_items/homonculus3_tex.png" id="title-icon">
+            <div id="title">Arborean Apparel (ALPHA)</div>
+            <div id="title-bar-btns">
+                <button id="min-btn">-</button>
+                <button id="close-btn">x</button>
+            </div>
+        </div>
+        <div class="over">
+            <div class="thing">
+                <input class="typeahead" type="text">
+            </div>
+        </div>
+        <div class="container">
+            <div class="row character">
+                <div class="character-name"></div>
+                <div class="character-desc"></div>
+            </div>
+            <div class="row tabs">
+                <div class="tab"><a href="#gear">Gear</a></div>
+                <div class="tab"><a href="#costume">Costume</a></div>
+                <div class="tab"><a href="#changerz">Changer</a></div>
+                <div class="tab"><a href="#extra">Other</a></div>
+                <div class="tab"><a href="#sliders">Sliders</a></div>
+            </div>
+            <div id="gear" class="page">
+                <div class="row">
+                    <div class="slot slot-left"></div>
+                    <div class="slot slot-top">Equip.</div>
+                    <div class="slot slot-top">Over.</div>
+                </div>
+                <div id="slot-weapon" class="row">
+                    <div class="slot slot-left">Weapon</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-weapon equipped">
+                            <div class="toggle-display"></div>
+                        </div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-weapon override"></div>
+                    </div>
+                    <div class="selection">
+                        <a class="item" data-type="weapon">None</a>
+                        <div class="options">
+                            <label for="weapon-enchant">Glow:</label>
+                            <div class="select">
+                                <select id="weapon-enchant">
+                                    <option>x</option>
+                                    <option>0</option>
+                                    <option>9</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                    <option>13</option>
+                                    <option>14</option>
+                                    <option>15</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="slot-body" class="row">
+                    <div class="slot slot-left">Chest</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-body equipped">
+                            <div class="toggle-display"></div>
+                        </div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-body override"></div>
+                    </div>
+                    <div class="selection">
+                        <a class="item" data-type="body">None</a>
+                        <div class="dye"></div>
+                    </div>
+                </div>
+                <div id="slot-hand" class="row">
+                    <div class="slot slot-left">Gloves</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-hand equipped">
+                            <div class="toggle-display"></div>
+                        </div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-hand override"></div>
+                    </div>
+                    <div class="selection">
+                        <a class="item" data-type="hand">None</a>
+                        <div class="dye"></div>
+                    </div>
+                </div>
+                <div id="slot-feet" class="row">
+                    <div class="slot slot-left">Boots</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-feet equipped">
+                            <div class="toggle-display"></div>
+                        </div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-feet override"></div>
+                    </div>
+                    <div class="selection">
+                        <a class="item" data-type="feet">None</a>
+                        <div class="dye"></div>
+                    </div>
+                </div>
+                <div id="slot-underwear" class="row">
+                    <div class="slot slot-left">Inner</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-underwear equipped"></div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-underwear override"></div>
+                    </div>
+                    <div class="selection"><a class="item" data-type="underwear">None</a></div>
+                </div>
+            </div>
+            <div id="costume" class="page">
+                <div class="row">
+                    <div class="slot slot-left"></div>
+                    <div class="slot slot-top">Equip.</div>
+                    <div class="slot slot-top">Over.</div>
+                </div>
+                <div id="slot-styleHead" class="row">
+                    <div class="slot slot-left">Head</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleHead equipped">
+                            <div class="toggle-display"></div>
+                        </div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleHead override"></div>
+                    </div>
+                    <div class="selection"><a class="item" data-type="styleHead">None</a></div>
+                </div>
+                <div id="slot-styleFace" class="row">
+                    <div class="slot slot-left">Face</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleFace equipped">
+                            <div class="toggle-display"></div>
+                        </div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleFace override"></div>
+                    </div>
+                    <div class="selection"><a class="item" data-type="styleFace">None</a></div>
+                </div>
+                <div id="slot-styleBody" class="row">
+                    <div class="slot slot-left">Costume</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleBody equipped"></div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleBody override"></div>
+                    </div>
+                    <div class="selection">
+                        <a class="item" data-type="styleBody">None</a>
+                        <div class="dye"></div>
+                        <div class="options">
+                            <input type="text" class="outfit-text" placeholder="Name Tag">
+                        </div>
+                    </div>
+                </div>
+                <div id="slot-styleBack" class="row">
+                    <div class="slot slot-left">Back</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleBack equipped"></div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleBack override"></div>
+                    </div>
+                    <div class="selection"><a class="item" data-type="styleBack">None</a></div>
+                </div>
+                <div id="slot-styleWeapon" class="row">
+                    <div class="slot slot-left">Weapon</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleWeapon equipped"></div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleWeapon override"></div>
+                    </div>
+                    <div class="selection"><a class="item" data-type="styleWeapon">None</a></div>
+                </div>
+                <div id="slot-styleFootprint" class="row">
+                    <div class="slot slot-left">Footprint</div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleFootprint equipped"></div>
+                    </div>
+                    <div class="slot">
+                        <div class="gear-icon slot-styleFootprint override"></div>
+                    </div>
+                    <div class="selection"><a class="item" data-type="styleFootprint">None</a></div>
+                </div>
+            </div>
+                       <div id="changerz" class="page">
+                <div class="changers">
+                    <div class="row">
+                        Size: <span class="changer-text whisper"></span><br>
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_poongu_ab_tex.png" class="changer" data-change="chest">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_jangshin_ab_tex.png" class="changer" data-change="height">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_yookduk00_ab_tex.png" class="changer" data-change="thighs">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_janggoe_ab_tex.png" class="changer" data-change="size">
+                        <br>
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_poongu_ab_tex_minus.png" class="changer" data-change="dchest">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_jangshin_ab_tex_minus.png" class="changer" data-change="dheight">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_yookduk00_ab_tex_minus.png" class="changer" data-change="dthighs">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_janggoe_ab_tex_minus.png" class="changer" data-change="dsize">
+                    </div>
+                </div>
+                <div class="rmchanger">
+                    <div class="row">
+                        Remove:<span class="rmchanger-text whisper"></span><br> 
+                        <img src="https://simplesalt.feedia.co/shared/icon_items/icon_yookduk_item_tex_mnius.png" class="rmchanger" data-rmchanger="chest">
+                        <img src="https://simplesalt.feedia.co/shared/icon_items/icon_jangshin_item_tex_minus.png" class="rmchanger" data-rmchanger="height">
+                        <img src="https://simplesalt.feedia.co/shared/icon_items/icon_yookduk00_item_tex_mnius.png" class="rmchanger" data-rmchanger="thighs">
+                        <img src="https://simplesalt.feedia.co/shared/icon_items/icon_janggoe_item_tex_minus.png" class="rmchanger" data-rmchanger="size">
+                    </div>
+                </div>
+                <br> <br>
+                <div class="abnormal">
+                    <div class="row">
+                        Effects (toggle): <span class="abnormal-text whisper"></span> <br>                             
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/icon_deadoo_ab_tex.png" class="abnormal" data-abnormalName="head">
+                        <img src="https://simplesalt.feedia.co/shared/icon_equipments/underwear00_m_tex.png" class="abnormal" data-abnormalName="confidence">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/vergosflame_tex.png" class="abnormal" data-abnormalName="p2wings">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/vergosdust_tex.png" class="abnormal" data-abnormalName="wing2">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/battlefield_high_ranking_tex.png" class="abnormal" data-abnormalName="murderous">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/darkriftarearage_tex.png" class="abnormal" data-abnormalName="darkswirl">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/whirl_tex.png" class="abnormal" data-abnormalName="tornado">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/strongheat_tex.png" class="abnormal" data-abnormalName="burning">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/widepurity_tex.png" class="abnormal" data-abnormalName="healing">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/paralyzestatus_tex.png" class="abnormal" data-abnormalName="electricity">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/vitality_tex.png" class="abnormal" data-abnormalName="swirl">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/kumas_righthit_tex.png" class="abnormal" data-abnormalName="noct">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/kw_atk1_tex.png" class="abnormal" data-abnormalName="redhand">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/gatheringstrength_tex.png" class="abnormal" data-abnormalName="overpower">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/weak_point_observed.png" class="abnormal" data-abnormalName="sniperseye">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/areampgain_tex.png" class="abnormal" data-abnormalName="tenacity">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/areahpgain_tex.png" class="abnormal" data-abnormalName="unyielding">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/areahpgain_tex.png" class="abnormal" data-abnormalName="bluenacity">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/collectenergy_tex.png" class="abnormal" data-abnormalName="hyperhand">
+                        <img src="https://simplesalt.feedia.co/shared/icon_status/darkriftgravity_tex.png" class="abnormal" data-abnormalName="succ">
+                        <img src="https://simplesalt.feedia.co/shared/icon_skills/greeting_tex.png" class="abnormal" data-abnormalName="hearts">
+                    </div>
+                </div>
+            </div>
+            <div id="extra" class="page">
+                <div class="row">
+                    <div class="togglebox">
+                        <input type="checkbox" id="hideidle">
+                        <label for="hideidle"></label>
+                    </div>
+                    <label for="hideidle">Hide idle animations <small class="whisper">!aa idle</small></label>
+                </div>
+                <div class="row">
+                    <div class="togglebox">
+                        <input type="checkbox" id="hidecb">
+                        <label for="hidecb"></label>
+                    </div>
+                    <label for="hidecb">Hide Crystalbind <small class="whisper">!aa cb</small></label>
+                </div>
+                <div class="row">
+                    <br>
+                </div>
+                <div class="mount-menu">
+                    <strong>Mount selecta</strong>
+                    Select ur mount hehe xd
+                    <div class="typehead">
+                        <div class="mount-icon mountIcon"></div>
+                    </div>
+                </div>
+                <br>
+                <div class="sky-menu">		
+                    <div class="typehead">
+                        <strong>Sky Type:</strong> 
+                        <a class="sky-type skyText">None~</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="sliders" class="page">
+            <div>
+                hehe xd someone else write it for me plis!
+
+                also go check the readme some stuff changed and you'll want to download a new electron version.
+            </div>
+        </div>
+
+
+
+        <div class="picker">
+            <div class="red color"><input type="range" class="slider" min="1" max="255"><output>1</output></div>
+            <div class="green color"><input type="range" class="slider" min="1" max="255"><output>1</output></div>
+            <div class="blue color"><input type="range" class="slider" min="1" max="255"><output>1</output></div>
+            <div class="alpha color"><input type="range" class="slider" min="1" max="255"><output>1</output></div>
+            <div class="toggle">
+                <div class="togglebox">
+                    <input type="checkbox" id="dyetoggle">
+                    <label for="dyetoggle"></label>
+                </div>
+                <label for="dyetoggle">Enable dye</label>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
