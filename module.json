@@ -1,3 +1,4 @@
 {
-    "servers": ["https://raw.githubusercontent.com/iribae/arborean-apparel/master/"]
+	"disableAutoUpdate": false,
+	"servers": ["https://raw.githubusercontent.com/iribae/arborean-apparel/master/"]
 }
