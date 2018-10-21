@@ -19,7 +19,7 @@
 
 
 ***
-[Please funnel money into my mouth to support development](https://ko-fi.com/codeagon)
+<removed dingus donation link>
 ***
 ### How to:
 
