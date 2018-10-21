@@ -2,7 +2,7 @@
 	"files": {
 		"LICENSE.md": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
 		"README.md": "de9d621948623b6571d8f9c4808fb8a98a68e9b125cb6dbb3cdcdb1f0a4275b7",
-		"index.js": "a11b515e49d0a19c39138510b9c9c0fd2d0c4453e7b1aa5d010e0cf43e109732",
+		"index.js": "3cb6ca6a69d95615bb7758bf7c340b19f5f7e662396436c3da6a8eb9a647f2ed",
 		"module.json": "03565d0c50fab783893213414a88c51d8850103d316ffc63fa0bf18117d3198a",
 		"networking.js": "7a197e67a98c9d53939b309800065941cde9465c00fcd22a79dda345e7ecf3ea",
 		"package.json": "cd810a9685c57936b05e9090c45fcfc073f8a31314b68902e49597dd64879ecf",
@@ -15,9 +15,12 @@
 		"www/items.json": "28f8f5820a49c97d8fb315c5fd40fc11aae7414ca282fe333bbe11ee1520cce9",
 		"www/js/jquery-3.2.0.slim.min.js": "a8b02fd240408a170764b2377efdd621329e46c517dbb85deaea4105ad0c4a8c",
 		"www/js/typeahead.bundle.min.js": "456894e2899453bb50d8cdf099140d5bd50be74301e02b9c6d13c26ec42ff97d",
-		"www/main.js": "3215ec11ab983000fbe6475dfb7737d2a423098d9d898b482dbf18bc9f6b1781",
+		"www/main.js": "747e6e7f761776302aca145c3f11a26772cd5fe7d834bb62cd367343a2d6f957",
 		"www/mounts.json": "15d64266f3a2ca3996138ae0b3c5bb8f7629c3adc4de87942db71a46f0cfa1d4",
-		"www/style.css": "a9a8e1aa1963f604479e92c0bbfe435bc6b6806703b085a4e7fba13e1cc12cd3"
+		"www/style.css": "a9a8e1aa1963f604479e92c0bbfe435bc6b6806703b085a4e7fba13e1cc12cd3",
+		"www/test.css": "786bceba10862b4891c480cc034ab2440e7bd1bfae3b53c977806852d55ec287",
+		"www/test.html": "0630006df0c9c011ed861d0dc941120f085bd3dab34f8c340c19e2b9b28a3df4",
+		"www/test.js": "14db0536d931dfc5def902f472b96047bb0a3a15cadf9c32b4e04bee88f2da37"
 	},
 	"defs": {
 		"C_LOAD_TOPO_FIN": 1,

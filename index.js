@@ -4,7 +4,6 @@ const path = require('path');
 const Command = require('command');
 const fs = require('fs');
 const Networking = require('./networking');
-const GameState = require('tera-game-state');
 const Window = require('./window');
 const EMOTES = {
     bow: 43,
@@ -82,7 +81,7 @@ function dye2int({
 }
 module.exports = function ArboreanApparel(dispatch) {
 
-    const game = GameState(dispatch);
+    const game = dispatch.game;
     const command = Command(dispatch);
     const net = new Networking();
     const win = new Window();
