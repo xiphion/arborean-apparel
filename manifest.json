@@ -17,10 +17,7 @@
 		"www/js/typeahead.bundle.min.js": "456894e2899453bb50d8cdf099140d5bd50be74301e02b9c6d13c26ec42ff97d",
 		"www/main.js": "747e6e7f761776302aca145c3f11a26772cd5fe7d834bb62cd367343a2d6f957",
 		"www/mounts.json": "15d64266f3a2ca3996138ae0b3c5bb8f7629c3adc4de87942db71a46f0cfa1d4",
-		"www/style.css": "a9a8e1aa1963f604479e92c0bbfe435bc6b6806703b085a4e7fba13e1cc12cd3",
-		"www/test.css": "786bceba10862b4891c480cc034ab2440e7bd1bfae3b53c977806852d55ec287",
-		"www/test.html": "0630006df0c9c011ed861d0dc941120f085bd3dab34f8c340c19e2b9b28a3df4",
-		"www/test.js": "14db0536d931dfc5def902f472b96047bb0a3a15cadf9c32b4e04bee88f2da37"
+		"www/style.css": "a9a8e1aa1963f604479e92c0bbfe435bc6b6806703b085a4e7fba13e1cc12cd3"
 	},
 	"defs": {
 		"C_LOAD_TOPO_FIN": 1,
