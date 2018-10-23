@@ -235,12 +235,15 @@ module.exports = function ArboreanApparel(dispatch) {
             target: game.me.gameId,
             id: hidecb ? add : rem
         });
-        dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+        dispatch.send('S_ABNORMALITY_BEGIN', 3, {
             target: game.me.gameId,
             source: game.me.gameId,
             id: hidecb ? rem : add,
             duration,
-            stacks: crystalbind.stacks
+            unk: 0,
+            stacks: crystalbind.stacks,
+            unk2: 0,
+            unk3: 0
         });
     }
 
@@ -295,14 +298,15 @@ module.exports = function ArboreanApparel(dispatch) {
 
     function reeeabnormies(name) {
         const abnormal = ABNORM[name];
-        dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+        dispatch.send('S_ABNORMALITY_BEGIN', 3, {
             target: game.me.gameId,
             source: 6969696,
             id: abnormal,
             duration: 0,
             unk: 0,
             stacks: 1,
-            unk2: 0
+            unk2: 0,
+            unk3: 0
         });
         net.send('abnBegin', abnormal);
     }
@@ -314,14 +318,15 @@ module.exports = function ArboreanApparel(dispatch) {
             return; // BLESS YOU KASEA
         const abnormal = ABNORM[name];
         if (!presets[player].abnlist.includes(name)) {
-            dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+            dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                 target: game.me.gameId,
                 source: 6969696,
                 id: abnormal,
                 duration: 0,
                 unk: 0,
                 stacks: 1,
-                unk2: 0
+                unk2: 0,
+                unk3: 0
             });
             presets[player].abnlist.push(name);
             presetUpdate();
@@ -356,26 +361,28 @@ module.exports = function ArboreanApparel(dispatch) {
                 break
             case "dsize":
                 meme = STACKS.size--;
-                dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+                dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                     target: game.me.gameId,
                     source: 6969696,
                     id: addChange,
                     duration: 0,
                     unk: 0,
                     stacks: meme,
-                    unk2: 0
+                    unk2: 0,
+                    unk3: 0
                 });
                 net.send('changer', addChange, meme);
                 break
             default:
-                dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+                dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                     target: game.me.gameId,
                     source: 6969696,
                     id: addChange,
                     duration: 0,
                     unk: 0,
                     stacks: stacker,
-                    unk2: 0
+                    unk2: 0,
+                    unk3: 0
                 });
                 net.send('changer', addChange, stacker);
                 STACKS[name]++;
@@ -800,7 +807,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
     });
 
-    addHook('S_ABNORMALITY_BEGIN', 2, setCrystalbind);
+    addHook('S_ABNORMALITY_BEGIN', 3 , setCrystalbind);
     addHook('S_ABNORMALITY_REFRESH', 1, setCrystalbind);
     addHook('S_ABNORMALITY_END', 1, (event) => {
         if (event.target.equals(game.me.gameId)) {
@@ -948,14 +955,15 @@ module.exports = function ArboreanApparel(dispatch) {
             if (!networked.has(id))
                 return;
             if (config.allowEffects) {
-                dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+                dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                     target: str2id(id),
                     source: 6969696,
                     id: abnormal,
                     duration: 0,
                     unk: 0,
                     stacks: 1,
-                    unk2: 0
+                    unk2: 0,
+                    unk3: 0
                 });
             }
         }
@@ -977,13 +985,15 @@ module.exports = function ArboreanApparel(dispatch) {
         const cid = str2id(id);
         const type = 4600 + 10 * cb.type;
         if (cb.expires) {
-            dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+            dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                 target: cid,
                 source: cid,
                 id: type,
                 duration: crystalbind.expires,
                 stacks: crystalbind.stacks,
-                unk: 0
+                unk: 0,
+                unk2: 0,
+                unk3: 0
             });
         } else {
             dispatch.send('S_ABNORMALITY_END', 1, {
@@ -1000,14 +1010,15 @@ module.exports = function ArboreanApparel(dispatch) {
     });
     net.on('changer', (id, field, value) => {
         if (config.allowChangers && ingame) {
-            dispatch.send('S_ABNORMALITY_BEGIN', 2, {
+            dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                 target: str2id(id),
                 source: 6969696,
                 id: field,
                 duration: 0,
                 unk: 0,
                 stacks: value,
-                unk2: 0
+                unk2: 0,
+                unk3: 0
             });
         }
     });
