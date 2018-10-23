@@ -19,7 +19,7 @@
 
 
 ***
-[Bribe me to make updates and fixes more common!](https://Ko-fi.com/xiphion)
+<removed dingus donation link>
 ***
 ### How to:
 
@@ -30,8 +30,11 @@
 
 I also recommend checking the options in `config.json`.
 
+If this doesn't work or isn't clear, hit me up @@@@ Pentagon#0099 on discord.
+
 ### Usage:
 To open the UI type `aa open` into /proxy or `!aa open` into a normal chat. There are other commands but everything is controlled through the UI and I'm probably going to delete them because I hate ease of use.
+A brief overview of how to use the module can be found [here](https://www.youtube.com/watch?v=i-y2D_2DUZ8.com) (the UI has changed a little but it's the same stuff).
 
 #### Updating:
 This mod support auto-updating via [Caali's Proxy](https://tinyurl.com/caalitera). 
