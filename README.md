@@ -1,5 +1,3 @@
-[![Discord](https://discordapp.com/api/guilds/385946679733518338/widget.png)](https://discord.gg/dzB7xZK)
-
 # Arborean Apparel
 
 
@@ -13,7 +11,7 @@
       - [Online:](#online)
   - [FAQ/Errors:](#faqerrors)
   - [Todo:](#todo)
-  - [Update log (Last few, 26th March) -](#update-log-last-few-26th-march-)
+  - [Update log](#update-log)
 
 
 
@@ -34,7 +32,7 @@ I also recommend checking the options in `config.json`.
 To open the UI type `aa open` into /proxy or `!aa open` into a normal chat. There are other commands but everything is controlled through the UI and I'm probably going to delete them because I hate ease of use.
 
 #### Updating:
-This mod support auto-updating via [Caali's Proxy](https://tinyurl.com/caalitera). 
+This mod support auto-updating via [Caali's Proxy](https://discord.gg/dUNDDtw). 
 
 I also updating electron frequently to ensure the best comparability, which can be done by downloading the latest release from [this page](https://github.com/electron/electron/releases), and extracting it to `/Tera-Proxy/electron/dist`
 
@@ -71,9 +69,16 @@ The server is run by *a specific party* for free, if you want your own special s
 - Tidy up UI
 - Add more features 
 - other stuff
+- get paid for working on AA
  ***
  
-## Update log (Jun 18)
+## Update log:
+
+### November 2
+- Images work again btw
+- I'm only updating this because I had something else to fix in the readme
+- For a more consistent update log look at github commit history 
+### Jun 18
 - Images now loaded from server provided by [SaltyMonkey](https://github.com/SaltyMonkey/), you can delete img.asar from the /www folder now.
 - Fixed several minor issues in regards to the UI.
 - Added `skyEveryMap`to the config, allowing the selected sky preset to be applied every time a new map is loaded.
