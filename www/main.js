@@ -180,11 +180,11 @@ jQuery(($) => {
     // add transparent <img> on top of each slot
     $('.gear-icon').each(function () {
         $(this).data('id', 0).append($make('img').attr('src',
-                `https://saltymonkey.online/shared/blank.png`));
+                `https://simplesalt.feedia.co/shared/blank.png`));
     });
     $('.mount-icon').each(function () {
         $(this).data('id', "0").append($make('img').attr('src',
-                `https://saltymonkey.online/shared/icon_items/homonculus1_tex.png`));
+                `https://simplesalt.feedia.co/shared/icon_items/homonculus1_tex.png`));
     });
 
     // set default dye color
@@ -397,7 +397,7 @@ jQuery(($) => {
         //console.log(mount);
         var elem = document.getElementById('mountIcon');
         var item = getMount(mount);
-        var img = item ? `https://saltymonkey.online/shared/${item.icon.toLowerCase()}.png` : `https://saltymonkey.online/shared/blank.png`;
+        var img = item ? `https://simplesalt.feedia.co/shared/${item.icon.toLowerCase()}.png` : `https://simplesalt.feedia.co/shared/blank.png`;
         $('.mountIcon', elem).data('id', item.id).children(
                 'img').attr('src', img);
     });
@@ -423,8 +423,8 @@ jQuery(($) => {
                     0;
             id = _dupes[id] || id;
             var item = getItem(slot, id);
-            var img = (item ? `https://saltymonkey.online/shared/${item.icon.toLowerCase()}.png` :
-                    `https://saltymonkey.online/shared/blank.png`);
+            var img = (item ? `https://simplesalt.feedia.co/shared/${item.icon.toLowerCase()}.png` :
+                    `https://simplesalt.feedia.co/shared/blank.png`);
             $('.equipped', elem).data('id', id).children(
                     'img').attr('src', img);
             // remodel
@@ -458,11 +458,11 @@ jQuery(($) => {
                         name: false
                     },
                     name: 'None',
-                    img: `https://saltymonkey.online/shared/blank.png`,
+                    img: `https://simplesalt.feedia.co/shared/blank.png`,
                     desc: ''
                 };
-                img = (item.id ? `https://saltymonkey.online/shared/${item.icon.toLowerCase()}.png` :
-                        `https://saltymonkey.online/shared/blank.png`);
+                img = (item.id ? `https://simplesalt.feedia.co/shared/${item.icon.toLowerCase()}.png` :
+                        `https://simplesalt.feedia.co/shared/blank.png`);
                 $('.override', elem).data('id', id).children(
                         'img').attr('src', img);
                 $('.item', elem).text(item.name);
@@ -541,7 +541,7 @@ jQuery(($) => {
                 'remodel-id' : 'base-id');
         var item = getItem(slot, id);
         $equipped.find('img').attr('src', item ?
-                `https://saltymonkey.online/shared/${item.icon.toLowerCase()}.png` : `https://saltymonkey.online/shared/blank.png`
+                `https://simplesalt.feedia.co/shared/${item.icon.toLowerCase()}.png` : `https://simplesalt.feedia.co/shared/blank.png`
                 );
         $this.toggleClass('off');
         if ($equipped.hasClass('selected'))
@@ -716,7 +716,7 @@ jQuery(($) => {
                                     $make('div', 'icon').append(
                                     $make('img').attr(
                                     'src',
-                                    `https://saltymonkey.online/shared/${item.icon.toLowerCase()}.png`
+                                    `https://simplesalt.feedia.co/shared/${item.icon.toLowerCase()}.png`
                                     )), $make('div',
                                     'info').append(
                                     $make('span',
@@ -843,7 +843,7 @@ jQuery(($) => {
                             if (item.dyeable) {
                                 $extra.append($make('img',
                                         'dyeable').attr({
-                                    src: 'https://saltymonkey.online/shared/icon_items/dye_result_random_tex.png',
+                                    src: 'https://simplesalt.feedia.co/shared/icon_items/dye_result_random_tex.png',
                                     alt: 'Dyeable',
                                     title: 'Dyeable'
                                 }));
@@ -851,7 +851,7 @@ jQuery(($) => {
                             if (item.nameable) {
                                 $extra.append($make('img',
                                         'nameable').attr({
-                                    src: 'https://saltymonkey.online/shared/icon_items/charname_change_tex.png',
+                                    src: 'https://simplesalt.feedia.co/shared/icon_items/charname_change_tex.png',
                                     alt: 'Nameable',
                                     title: 'Nameable'
                                 }));
@@ -860,7 +860,7 @@ jQuery(($) => {
                                     $make('div', 'icon').append(
                                     $make('img').attr(
                                     'src',
-                                    `https://saltymonkey.online/shared/${item.icon.toLowerCase()}.png`
+                                    `https://simplesalt.feedia.co/shared/${item.icon.toLowerCase()}.png`
                                     )), $make('div',
                                     'info').append(
                                     $make('span',
@@ -883,7 +883,7 @@ jQuery(($) => {
                     // set id, image, and text
                     $override.data('id', choice.id).children(
                             'img').attr('src',
-                            `https://saltymonkey.online/shared/${choice.icon.toLowerCase()}.png`);
+                            `https://simplesalt.feedia.co/shared/${choice.icon.toLowerCase()}.png`);
                     $('.item', _type).text(choice.name);
                     // dye
                     var $dye = $('.dye', _type);
