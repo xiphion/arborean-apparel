@@ -142,18 +142,16 @@ module.exports = function ArboreanApparel(dispatch) {
             "skyEveryMap": true,
             "allowEffects": true,
             "allowChangers": true,
-            "configVersion": "0.5",
-            "serverHost": "158.69.215.229",
+            "configVersion": "0.7",
+            "serverHost": "144.217.83.72",
             "serverPort": 3458
         };
         saveConfig();
     }
-    if (config.configVersion !== "0.6") {
-        console.log("The cause of images failing to load has been found and resolved");
-        console.log("I encourage everyone who hadn't fixed it manually to redownload the full release")
-        console.log("which can be found here: github.com/iribae/arborean-apparel/releases")
+    if (config.configVersion !== "0.7") {
+        console.log("Switched server ip : )");
         Object.assign(config, {
-            "configVersion": "0.6"
+            "configVersion": "0.7"
         });
         saveConfig();
     }
