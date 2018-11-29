@@ -58,7 +58,7 @@ const ABNORM = {
 };
 
 function id2str(id) {
-    return id.toString;
+    return id.toString();
 }
 
 function str2id(str) {
@@ -174,10 +174,12 @@ module.exports = function ArboreanApparel(dispatch) {
             return;
         }
         presetLock = true;
+        if(presets[player].gameId) presets[player].gameId=presets[player].gameId.toString();
         fs.writeFile(path.join(__dirname, 'presets.json'), JSON.stringify(
             presets, null, 4), err => {
                 presetLock = false;
             });
+        presets[player].gameId=BigInt(presets[player].gameId);
     }
 
     function nametagSave() {
@@ -426,8 +428,11 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         //override = presets[player];
         presetUpdate();
-        dispatch.send('S_USER_EXTERNAL_CHANGE', 6, Object.assign({},
-            outfit, override));
+        outfit.gameId=BigInt(outfit.gameId);
+        override.gameId=BigInt(override.gameId);
+        let packy = Object.assign({}, outfit, override);
+        packy.gameId = BigInt(packy.gameId);
+        dispatch.send('S_USER_EXTERNAL_CHANGE', 6, packy);
         net.send('outfit', override); // TODO
     });
     win.on('text', (info) => {
@@ -598,7 +603,8 @@ module.exports = function ArboreanApparel(dispatch) {
             race,
             gender
         };
-        if (presets[player] && presets[player].gameId !== 0) {
+        if(typeof(presets[player].gameId)=="object")  presets[player]=(BigInt(presets[player].high) << 32n) | BigInt(presets[player].low)
+        if (presets[player]) {
             override = presets[player];
             override.gameId = game.me.gameId;
             outfit.gameId = game.me.gameId;
@@ -638,7 +644,11 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         if (presets[player] && presets[player].id !== 0) {
             setTimeout(function () {
-                dispatch.send('S_USER_EXTERNAL_CHANGE', 6, Object.assign({}, outfit, override)); //fixes CU issue
+                outfit.gameId=BigInt(outfit.gameId);
+                override.gameId=BigInt(override.gameId);
+                let packy = Object.assign({}, outfit, override);
+                packy.gameId = BigInt(packy.gameId);
+                dispatch.send('S_USER_EXTERNAL_CHANGE', 6, packy); //fixes CU issue
             }, 9000);
 
         }
@@ -665,7 +675,7 @@ module.exports = function ArboreanApparel(dispatch) {
 
     addHook('S_USER_WEAPON_APPEARANCE_CHANGE', 2, event => {
         if (event.weapon != 202100) {
-            if (event.gameId.equals(game.me.gameId)) {
+            if (event.gameId === game.me.gameId) {
                 if (presets[player].styleWeapon) {
                     event.styleWeapon = presets[player].styleWeapon;
                 }
@@ -695,7 +705,7 @@ module.exports = function ArboreanApparel(dispatch) {
     });
 
     addHook('S_MOUNT_VEHICLE', 2, (event) => {
-        if (event.gameId.equals(game.me.gameId) && (presets[player] &&
+        if (event.gameId === game.me.gameId && (presets[player] &&
             presets[player].mountId && presets[player].mountId !==
             "696969")) {
             event.id = presets[player].mountId;
@@ -746,9 +756,10 @@ module.exports = function ArboreanApparel(dispatch) {
     // sorry for the mess
     addHook('S_USER_EXTERNAL_CHANGE', 6, (event) => {
         // self
-        if (event.gameId.equals(game.me.gameId)) {
+        if (event.gameId === game.me.gameId) {
             outfit = Object.assign({}, event);
-            if (presets[player] && presets[player].id !== 0) {
+            outfit.gameId = BigInt(outfit.gameId);
+            if (presets[player]) {
                 presets[player] = override;
                 presetUpdate();
                 win.send('outfit', outfit, override);
@@ -757,12 +768,15 @@ module.exports = function ArboreanApparel(dispatch) {
                     0))
                     updateNametag(nametags[player]);
                 // dispatch.send('S_USER_EXTERNAL_CHANGE', 4, Object.assign({}, outfit, override));
+                console.log("top if: \n" + event);
                 return true;
             } else {
                 outfit = Object.assign({}, event);
+                outfit.gameId=BigInt(outfit.gameId);
                 presets[player] = outfit;
                 presetUpdate();
                 win.send('outfit', outfit);
+                console.log("else: \n" + event);
             }
         }
         // other
@@ -770,6 +784,7 @@ module.exports = function ArboreanApparel(dispatch) {
         if (user) {
             Object.assign(user.outfit, event); // save real setup
             Object.assign(event, user.override); // write custom setup
+            console.log("other: \n" + event);
             return true;
             /*Object.assign(user.outfit, event);
              user.outfit.inner = user.outfit.innerwear; // TODO
@@ -790,7 +805,7 @@ module.exports = function ArboreanApparel(dispatch) {
     addHook('S_SOCIAL', 1, (event) => {
         if ([31, 32, 33].indexOf(event.animation) === -1)
             return;
-        if (event.target.equals(game.me.gameId)) {
+        if (event.target === game.me.gameId) {
             if (options.hideidle)
                 return false;
         } else {
@@ -803,7 +818,7 @@ module.exports = function ArboreanApparel(dispatch) {
     addHook('S_ABNORMALITY_BEGIN', 3 , setCrystalbind);
     addHook('S_ABNORMALITY_REFRESH', 1, setCrystalbind);
     addHook('S_ABNORMALITY_END', 1, (event) => {
-        if (event.target.equals(game.me.gameId)) {
+        if (event.target === game.me.gameId) {
             if (event.id === 4600 || event.id === 4610) {
                 crystalbind = {
                     expires: 0,
@@ -837,7 +852,7 @@ module.exports = function ArboreanApparel(dispatch) {
     function setCrystalbind(event) {
         if (event.id !== 4600 && event.id !== 4610)
             return;
-        if (event.target.equals(game.me.gameId)) {
+        if (event.target === game.me.gameId) {
             crystalbind = {
                 expires: Date.now() + event.duration,
                 stacks: event.stacks,
@@ -910,7 +925,11 @@ module.exports = function ArboreanApparel(dispatch) {
                 id: str2id(id),
                 enable: true
             };
+            base.gameId= BigInt(base.gameId);
+            user.outfit.gameId = BigInt(user.outfit.gameId)
+            user.override.gameId= BigInt(user.override.gameId)
             const outfit = Object.assign(base, user.outfit, user.override);
+            outfit.gameId = BigInt(outfit.gameId);
             dispatch.send('S_USER_EXTERNAL_CHANGE', 6, outfit);
         }
     });
