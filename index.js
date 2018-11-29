@@ -1,7 +1,6 @@
 /* global __dirname */
 
 const path = require('path');
-const Command = require('command');
 const fs = require('fs');
 const Networking = require('./networking');
 const Window = require('./window');
@@ -59,15 +58,11 @@ const ABNORM = {
 };
 
 function id2str(id) {
-    return `${id.high},${id.low}`;
+    return id.toString;
 }
 
 function str2id(str) {
-    const [high, low] = str.split(',');
-    return {
-        high,
-        low
-    };
+    return BigInt(str);
 }
 
 function dye2int({
@@ -82,7 +77,6 @@ function dye2int({
 module.exports = function ArboreanApparel(dispatch) {
 
     const game = dispatch.game;
-    const command = Command(dispatch);
     const net = new Networking();
     const win = new Window();
     const networked = new Map();
@@ -148,10 +142,11 @@ module.exports = function ArboreanApparel(dispatch) {
         };
         saveConfig();
     }
-    if (config.configVersion !== "0.7") {
-        console.log("Switched server ip : )");
+    if (config.configVersion !== "0.8" || config.online == true) {
+        console.log("[AA] disabled online until server is updated, will re-enabled when finished");
         Object.assign(config, {
-            "configVersion": "0.7"
+            "online": false,
+            "configVersion": "0.8"
         });
         saveConfig();
     }
@@ -198,7 +193,7 @@ module.exports = function ArboreanApparel(dispatch) {
     }
 
     function message(msg) {
-        command.message(`<font color="#916d7b">  [Arborean-Apparel] - </font> <font color="#eaf2ef">${msg}`);
+        dispatch.command.message(`<font color="#916d7b">  [Arborean-Apparel] - </font> <font color="#eaf2ef">${msg}`);
     }
 
     function broadcast(...args) {
@@ -481,7 +476,7 @@ module.exports = function ArboreanApparel(dispatch) {
     win.on('abn', abnormalStart);
     win.on('changer', startChanger);
     win.on('rmchanger', endChanger);
-    command.add('aa', (cmd, arg) => {
+    dispatch.command.add('aa', (cmd, arg) => {
         switch (cmd) {
             case 'job':
             case 'class':
@@ -1039,7 +1034,7 @@ module.exports = function ArboreanApparel(dispatch) {
         net.close();
         win.close();
         try {
-            command.remove('aa');
+            dispatch.command.remove('aa');
         } catch (e) {
         }
     };
