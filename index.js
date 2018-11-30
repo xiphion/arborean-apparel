@@ -589,7 +589,7 @@ module.exports = function ArboreanApparel(dispatch) {
         dispatch.hook(packetName, packetVersion, func);
     }
     // function enable() {
-    addHook('S_LOGIN', 10, () => {
+    addHook('S_LOGIN', 10, (packet) => {
         ingame = true;
         player = game.me.name;
         model = game.me.templateId - 10101;
@@ -603,7 +603,7 @@ module.exports = function ArboreanApparel(dispatch) {
             race,
             gender
         };
-        if(typeof(presets[player].gameId)=="object")  presets[player]=(BigInt(presets[player].high) << 32n) | BigInt(presets[player].low)
+        
         if (presets[player]) {
             override = presets[player];
             override.gameId = game.me.gameId;
