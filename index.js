@@ -768,7 +768,6 @@ module.exports = function ArboreanApparel(dispatch) {
                     0))
                     updateNametag(nametags[player]);
                 // dispatch.send('S_USER_EXTERNAL_CHANGE', 4, Object.assign({}, outfit, override));
-                console.log("top if: \n" + event);
                 return true;
             } else {
                 outfit = Object.assign({}, event);
@@ -776,7 +775,6 @@ module.exports = function ArboreanApparel(dispatch) {
                 presets[player] = outfit;
                 presetUpdate();
                 win.send('outfit', outfit);
-                console.log("else: \n" + event);
             }
         }
         // other
@@ -784,7 +782,6 @@ module.exports = function ArboreanApparel(dispatch) {
         if (user) {
             Object.assign(user.outfit, event); // save real setup
             Object.assign(event, user.override); // write custom setup
-            console.log("other: \n" + event);
             return true;
             /*Object.assign(user.outfit, event);
              user.outfit.inner = user.outfit.innerwear; // TODO
