@@ -179,7 +179,7 @@ module.exports = function ArboreanApparel(dispatch) {
             presets, null, 4), err => {
                 presetLock = false;
             });
-        presets[player].gameId=BigInt(presets[player].gameId);
+        presets[player].gameId=game.me.gameId;
     }
 
     function nametagSave() {
@@ -429,7 +429,7 @@ module.exports = function ArboreanApparel(dispatch) {
         //override = presets[player];
         presetUpdate();
         outfit.gameId=BigInt(outfit.gameId);
-        override.gameId=BigInt(override.gameId);
+        override.gameId=outfit.gameId;
         let packy = Object.assign({}, outfit, override);
         packy.gameId = BigInt(packy.gameId);
         dispatch.send('S_USER_EXTERNAL_CHANGE', 6, packy);
@@ -645,7 +645,7 @@ module.exports = function ArboreanApparel(dispatch) {
         if (presets[player] && presets[player].id !== 0) {
             setTimeout(function () {
                 outfit.gameId=BigInt(outfit.gameId);
-                override.gameId=BigInt(override.gameId);
+                override.gameId=outfit.gameId;
                 let packy = Object.assign({}, outfit, override);
                 packy.gameId = BigInt(packy.gameId);
                 dispatch.send('S_USER_EXTERNAL_CHANGE', 6, packy); //fixes CU issue
