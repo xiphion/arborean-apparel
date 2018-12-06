@@ -142,11 +142,11 @@ module.exports = function ArboreanApparel(dispatch) {
         };
         saveConfig();
     }
-    if (config.configVersion !== "0.8" || config.online == true) {
-        console.log("[AA] disabled online until server is updated, will re-enabled when finished");
+    if (config.configVersion !== "0.9") {
+        console.log("[AA] best way to test is release, online re-enabled");
         Object.assign(config, {
-            "online": false,
-            "configVersion": "0.8"
+            "online": true,
+            "configVersion": "0.9"
         });
         saveConfig();
     }
