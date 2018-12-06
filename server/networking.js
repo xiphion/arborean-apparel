@@ -2,6 +2,7 @@ const net = require('net');
 const tls = require('tls');
 const events = require('events');
 const readline = require('readline');
+const JSONbig = require('json-bigint');
 
 const HEARTBEAT_INTERVAL = 60 * 1000;
 
@@ -34,7 +35,7 @@ class Client extends events.EventEmitter {
   }
 
   send(...data) {
-    this.socket.write(JSON.stringify(data) + '\n');
+    this.socket.write(JSONbig.stringify(data) + '\n');
   }
 
   broadcast(...data) {
@@ -55,7 +56,7 @@ class Server extends events.EventEmitter {
 
       readline.createInterface({ input: socket }).on('line', (line) => {
         try {
-          client.emit(...JSON.parse(line));
+          client.emit(...JSONbig.parse(line));
         } catch (err) {
           console.warn(err);
         }
