@@ -2,6 +2,7 @@ const net = require('net')
 const tls = require('tls')
 const events = require('events')
 const readline = require('readline')
+const JSONbig = require('json-bigint')
 
 class Networking extends events.EventEmitter {
 	constructor() {
@@ -14,7 +15,7 @@ class Networking extends events.EventEmitter {
 			this.emit('connect')
 			readline.createInterface({ input: this.socket }).on('line', (line) => {
 				try {
-					this.emit(...JSON.parse(line))
+					this.emit(...JSONbig.parse(line))
 				} catch (err) {
 					this.emit('error', err)
 				}
@@ -28,7 +29,7 @@ class Networking extends events.EventEmitter {
 	}
 
 	send(...data) {
-		if (this.socket) this.socket.write(JSON.stringify(data) + '\n')
+		if (this.socket) this.socket.write(JSONbig.stringify(data) + '\n')
 	}
 
 	close() {
