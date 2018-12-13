@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const Networking = require('./networking');
 const Window = require('./window');
+const JSONbig = require('json-bigint');
 const EMOTES = {
     bow: 43,
     kitchen: 44,
@@ -77,6 +78,7 @@ function dye2int({
 module.exports = function ArboreanApparel(dispatch) {
 
     const game = dispatch.game;
+    const command = dispatch.command;
     const net = new Networking();
     const win = new Window();
     const networked = new Map();
@@ -143,9 +145,8 @@ module.exports = function ArboreanApparel(dispatch) {
         saveConfig();
     }
     if (config.configVersion !== "0.9") {
-        console.log("[AA] best way to test is release, online re-enabled");
+        console.log("uwu");
         Object.assign(config, {
-            "online": true,
             "configVersion": "0.9"
         });
         saveConfig();
@@ -153,7 +154,7 @@ module.exports = function ArboreanApparel(dispatch) {
 
 
     function saveConfig() {
-        fs.writeFile(path.join(__dirname, 'config.json'), JSON.stringify(
+        fs.writeFile(path.join(__dirname, 'config.json'), JSONbig.stringify(
             config, null, 4), err => {
             });
     }
@@ -174,12 +175,10 @@ module.exports = function ArboreanApparel(dispatch) {
             return;
         }
         presetLock = true;
-        if(presets[player].gameId) presets[player].gameId=presets[player].gameId.toString();
-        fs.writeFile(path.join(__dirname, 'presets.json'), JSON.stringify(
+        fs.writeFile(path.join(__dirname, 'presets.json'), JSONbig.stringify(
             presets, null, 4), err => {
                 presetLock = false;
             });
-        presets[player].gameId=game.me.gameId;
     }
 
     function nametagSave() {
@@ -188,14 +187,14 @@ module.exports = function ArboreanApparel(dispatch) {
             return;
         }
         nametagLock = true;
-        fs.writeFile(path.join(__dirname, 'nametags.json'), JSON.stringify(
+        fs.writeFile(path.join(__dirname, 'nametags.json'), JSONbig.stringify(
             nametags, null, 4), err => {
                 nametagLock = false;
             });
     }
 
     function message(msg) {
-        dispatch.command.message(`<font color="#916d7b">  [Arborean-Apparel] - </font> <font color="#eaf2ef">${msg}`);
+        command.message(`<font color="#916d7b">  [Arborean-Apparel] - </font> <font color="#eaf2ef">${msg}`);
     }
 
     function broadcast(...args) {
@@ -428,11 +427,8 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         //override = presets[player];
         presetUpdate();
-        outfit.gameId=BigInt(outfit.gameId);
-        override.gameId=outfit.gameId;
-        let packy = Object.assign({}, outfit, override);
-        packy.gameId = BigInt(packy.gameId);
-        dispatch.send('S_USER_EXTERNAL_CHANGE', 6, packy);
+        dispatch.send('S_USER_EXTERNAL_CHANGE', 6, Object.assign({},
+            outfit, override));
         net.send('outfit', override); // TODO
     });
     win.on('text', (info) => {
@@ -481,7 +477,7 @@ module.exports = function ArboreanApparel(dispatch) {
     win.on('abn', abnormalStart);
     win.on('changer', startChanger);
     win.on('rmchanger', endChanger);
-    dispatch.command.add('aa', (cmd, arg) => {
+    command.add('aa', (cmd, arg) => {
         switch (cmd) {
             case 'job':
             case 'class':
@@ -589,7 +585,7 @@ module.exports = function ArboreanApparel(dispatch) {
         dispatch.hook(packetName, packetVersion, func);
     }
     // function enable() {
-    addHook('S_LOGIN', 10, (packet) => {
+    addHook('S_LOGIN', 10, () => {
         ingame = true;
         player = game.me.name;
         model = game.me.templateId - 10101;
@@ -603,8 +599,7 @@ module.exports = function ArboreanApparel(dispatch) {
             race,
             gender
         };
-        
-        if (presets[player]) {
+        if (presets[player] && presets[player].gameId !== 0) {
             override = presets[player];
             override.gameId = game.me.gameId;
             outfit.gameId = game.me.gameId;
@@ -644,11 +639,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         if (presets[player] && presets[player].id !== 0) {
             setTimeout(function () {
-                outfit.gameId=BigInt(outfit.gameId);
-                override.gameId=outfit.gameId;
-                let packy = Object.assign({}, outfit, override);
-                packy.gameId = BigInt(packy.gameId);
-                dispatch.send('S_USER_EXTERNAL_CHANGE', 6, packy); //fixes CU issue
+                dispatch.send('S_USER_EXTERNAL_CHANGE', 6, Object.assign({}, outfit, override)); //fixes CU issue
             }, 9000);
 
         }
@@ -675,7 +666,7 @@ module.exports = function ArboreanApparel(dispatch) {
 
     addHook('S_USER_WEAPON_APPEARANCE_CHANGE', 2, event => {
         if (event.weapon != 202100) {
-            if (event.gameId === game.me.gameId) {
+            if (event.gameId===game.me.gameId) {
                 if (presets[player].styleWeapon) {
                     event.styleWeapon = presets[player].styleWeapon;
                 }
@@ -758,8 +749,7 @@ module.exports = function ArboreanApparel(dispatch) {
         // self
         if (event.gameId === game.me.gameId) {
             outfit = Object.assign({}, event);
-            outfit.gameId = BigInt(outfit.gameId);
-            if (presets[player]) {
+            if (presets[player] && presets[player].id !== 0) {
                 presets[player] = override;
                 presetUpdate();
                 win.send('outfit', outfit, override);
@@ -771,7 +761,6 @@ module.exports = function ArboreanApparel(dispatch) {
                 return true;
             } else {
                 outfit = Object.assign({}, event);
-                outfit.gameId=BigInt(outfit.gameId);
                 presets[player] = outfit;
                 presetUpdate();
                 win.send('outfit', outfit);
@@ -815,7 +804,7 @@ module.exports = function ArboreanApparel(dispatch) {
     addHook('S_ABNORMALITY_BEGIN', 3 , setCrystalbind);
     addHook('S_ABNORMALITY_REFRESH', 1, setCrystalbind);
     addHook('S_ABNORMALITY_END', 1, (event) => {
-        if (event.target === game.me.gameId) {
+        if (event.target === game.me.gameId ) {
             if (event.id === 4600 || event.id === 4610) {
                 crystalbind = {
                     expires: 0,
@@ -922,11 +911,7 @@ module.exports = function ArboreanApparel(dispatch) {
                 id: str2id(id),
                 enable: true
             };
-            base.gameId= BigInt(base.gameId);
-            user.outfit.gameId = BigInt(user.outfit.gameId)
-            user.override.gameId= BigInt(user.override.gameId)
             const outfit = Object.assign(base, user.outfit, user.override);
-            outfit.gameId = BigInt(outfit.gameId);
             dispatch.send('S_USER_EXTERNAL_CHANGE', 6, outfit);
         }
     });
@@ -1035,7 +1020,7 @@ module.exports = function ArboreanApparel(dispatch) {
     net.on('error', (err) => {
         // TODO
         console.log('[ARBOREAN APPAREL] - Your connection to the costume sharing server has been terminated!');
-        //console.warn(err);
+        console.log(err);
     });
     /* ---------- *
      * INITIALIZE *
@@ -1050,7 +1035,7 @@ module.exports = function ArboreanApparel(dispatch) {
         net.close();
         win.close();
         try {
-            dispatch.command.remove('aa');
+            command.remove('aa');
         } catch (e) {
         }
     };
