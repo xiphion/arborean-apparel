@@ -144,10 +144,11 @@ module.exports = function ArboreanApparel(dispatch) {
         };
         saveConfig();
     }
-    if (config.configVersion !== "0.9") {
+    if (config.configVersion !== "0.9" || config.serverHost !=="144.217.83.72") {
         console.log("uwu");
         Object.assign(config, {
-            "configVersion": "0.9"
+            "configVersion": "0.9",
+            "serverHost" : "144.217.83.72"
         });
         saveConfig();
     }
@@ -233,7 +234,7 @@ module.exports = function ArboreanApparel(dispatch) {
             target: game.me.gameId,
             source: game.me.gameId,
             id: hidecb ? rem : add,
-            duration,
+            duration: duration,
             unk: 0,
             stacks: crystalbind.stacks,
             unk2: 0,
@@ -296,7 +297,7 @@ module.exports = function ArboreanApparel(dispatch) {
             target: game.me.gameId,
             source: 6969696,
             id: abnormal,
-            duration: 0,
+            duration: 6969696,
             unk: 0,
             stacks: 1,
             unk2: 0,
@@ -316,7 +317,7 @@ module.exports = function ArboreanApparel(dispatch) {
                 target: game.me.gameId,
                 source: 6969696,
                 id: abnormal,
-                duration: 0,
+                duration: 6969696,
                 unk: 0,
                 stacks: 1,
                 unk2: 0,
@@ -341,47 +342,58 @@ module.exports = function ArboreanApparel(dispatch) {
     function startChanger(name) {
         if (Date.now() - lastCallDate < 100)
             return;
-        const addChange = CHANGERS[name];
-        const stacker = STACKS[name];
+        console.log(`changer ipc name is: `+name+ ` and or ` + CHANGERS[name]);
+        const changerId = CHANGERS[name];
+        let edited;
         switch (name) {
+        	case "chest":
+        		++STACKS.chest;
+        		edited = "chest";
+        		break;
+        	case "height":
+        		++STACKS.height;
+        		edited = "height";
+        		break;
+        	case "thighs":
+        		++STACKS.thighs;
+        		edited = "thighs";
+        		break;
+        	case "size":
+        		++STACKS.size;
+        		edited = "size";
+        		break;
             case "dchest":
-                meme = STACKS.chest--;
-                break
+                --STACKS.chest;
+        		edited = "chest";
+                break;
             case "dheight":
-                meme = STACKS.height--;
-                break
+                --STACKS.height;
+        		edited = "height";
+                break;
             case "dthighs":
-                meme = STACKS.thighs--;
-                break
+                --STACKS.thighs;
+        		edited = "thighs";
+                break;
             case "dsize":
-                meme = STACKS.size--;
-                dispatch.send('S_ABNORMALITY_BEGIN', 3, {
-                    target: game.me.gameId,
-                    source: 6969696,
-                    id: addChange,
-                    duration: 0,
-                    unk: 0,
-                    stacks: meme,
-                    unk2: 0,
-                    unk3: 0
-                });
-                net.send('changer', addChange, meme);
-                break
+                --STACKS.size;
+        		edited = "size";
+                break;
             default:
-                dispatch.send('S_ABNORMALITY_BEGIN', 3, {
+                break;
+        }
+        console.log(STACKS);
+        dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                     target: game.me.gameId,
                     source: 6969696,
-                    id: addChange,
-                    duration: 0,
+                    id: changerId,
+                    duration: 6969696,
                     unk: 0,
-                    stacks: stacker,
+                    stacks: STACKS[edited],
                     unk2: 0,
                     unk3: 0
                 });
-                net.send('changer', addChange, stacker);
-                STACKS[name]++;
-                break
-        }
+                net.send('changer', changerId, STACKS[edited]);
+        lastCallDate = Date.now();
     }
 
     function endChanger(name) {
@@ -395,6 +407,7 @@ module.exports = function ArboreanApparel(dispatch) {
         });
         STACKS[name] = 4;
         net.send('abnEnd', remChange);
+        lastCallDate = Date.now();
     }
 
     /* --------- *
@@ -644,20 +657,7 @@ module.exports = function ArboreanApparel(dispatch) {
 
         }
     });
-    addHook('S_USER_EXTERNAL_CHANGE', 6, (event) => {
-        if (event.accessoryTransform1 === 0) { // haha idc any more lets just get this shit done xdddd
-            event.accessoryTransform1 = 1;
-            return true;
-        }
-        if (event.accessoryTransform10 === 0) {
-            event.accessoryTransform10 = 1;
-            return true;
-        }
-        if (event.accessoryTransform20 === 0) {
-            event.accessoryTransform20 = 1;
-            return true;
-        }
-    });
+    
 
     //Marrow brooch handling thanks Cosplayer, kasea please die
     addHook('S_UNICAST_TRANSFORM_DATA', 'raw', () => {
