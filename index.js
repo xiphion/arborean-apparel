@@ -242,6 +242,18 @@ module.exports = function ArboreanApparel(dispatch) {
         });
     }
 
+    function sendChanger(name, stacks) {
+    	dispatch.send('S_ABNORMALITY_BEGIN', 3, {
+    		target: game.me.gameId,
+            source: game.me.gameId,
+            id: CHANGERS[name],
+            duration: 696969,
+            unk: 0,
+            stacks: stacks,
+            unk2: 0,
+            unk3: 0
+    	})
+    }
     function doEmote(name) {
         const emote = EMOTES[name];
         if (!emote)
@@ -342,7 +354,6 @@ module.exports = function ArboreanApparel(dispatch) {
     function startChanger(name) {
         if (Date.now() - lastCallDate < 100)
             return;
-        console.log(`changer ipc name is: `+name+ ` and or ` + CHANGERS[name]);
         const changerId = CHANGERS[name];
         let edited;
         switch (name) {
@@ -381,7 +392,8 @@ module.exports = function ArboreanApparel(dispatch) {
             default:
                 break;
         }
-        console.log(STACKS);
+        
+        presets[player].changers.set(edited, STACKS[edited]);
         dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                     target: game.me.gameId,
                     source: 6969696,
@@ -392,7 +404,10 @@ module.exports = function ArboreanApparel(dispatch) {
                     unk2: 0,
                     unk3: 0
                 });
-                net.send('changer', changerId, STACKS[edited]);
+        net.send('changer', changerId, STACKS[edited]);
+        presets[player].changers = [...presets[player].changers];
+        presetSave();
+        presets[player].changers = new Map(presets[player].changers);
         lastCallDate = Date.now();
     }
 
@@ -406,7 +421,12 @@ module.exports = function ArboreanApparel(dispatch) {
             id: remChange
         });
         STACKS[name] = 4;
+        if(presets[player].changers == undefined) presets[player].changers = new Map();
+        presets[player].changers.set(name, 4);
         net.send('abnEnd', remChange);
+        presets[player].changers = [...presets[player].changers];
+        presetSave();
+        presets[player].changers = new Map(presets[player].changers);
         lastCallDate = Date.now();
     }
 
@@ -656,6 +676,13 @@ module.exports = function ArboreanApparel(dispatch) {
             }, 9000);
 
         }
+        if(presets[player].changers instanceof Array) presets[player].changers=new Map(presets[player].changers);
+        if(presets[player].changers instanceof Map && presets[player].changers.size!==0) {
+        	for(let iter of ["chest", "thighs", "height", "size"]) STACKS[iter] = presets[player].changers.get(iter);
+        	for (var [key, value] of presets[player].changers) {
+                if(key!="") sendChanger(key, value);
+            }
+        }
     });
     
 
@@ -869,7 +896,7 @@ module.exports = function ArboreanApparel(dispatch) {
         networked.set(id, user);
     }
     net.on('connect', () => {
-        if (!game.me.gameId || game.me.gameId.isZero())
+        if (!game.me.gameId || game.me.gameId === 0n)
             return;
         net.send('login', id2str(game.me.gameId));
         net.send('options', options);
