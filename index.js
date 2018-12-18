@@ -242,18 +242,6 @@ module.exports = function ArboreanApparel(dispatch) {
         });
     }
 
-    function sendChanger(name, stacks) {
-    	dispatch.send('S_ABNORMALITY_BEGIN', 3, {
-    		target: game.me.gameId,
-            source: game.me.gameId,
-            id: CHANGERS[name],
-            duration: 696969,
-            unk: 0,
-            stacks: stacks,
-            unk2: 0,
-            unk3: 0
-    	})
-    }
     function doEmote(name) {
         const emote = EMOTES[name];
         if (!emote)
@@ -301,6 +289,19 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         win.send('sky', name);
         presetUpdate();
+    }
+
+    function changerSend(name, stacc) {
+    	dispatch.send('S_ABNORMALITY_BEGIN', 3, {
+            target: game.me.gameId,
+            source: 6969696,
+            id: CHANGERS[name],
+            duration: 6969696,
+            unk: 0,
+            stacks: stacc,
+            unk2: 0,
+            unk3: 0
+        });
     }
 
     function reeeabnormies(name) {
@@ -354,6 +355,7 @@ module.exports = function ArboreanApparel(dispatch) {
     function startChanger(name) {
         if (Date.now() - lastCallDate < 100)
             return;
+        for(let iter of ["chest", "height", "thighs", "size"]) STACKS[iter] = presets[player].changers[iter];
         const changerId = CHANGERS[name];
         let edited;
         switch (name) {
@@ -392,8 +394,6 @@ module.exports = function ArboreanApparel(dispatch) {
             default:
                 break;
         }
-        
-        presets[player].changers.set(edited, STACKS[edited]);
         dispatch.send('S_ABNORMALITY_BEGIN', 3, {
                     target: game.me.gameId,
                     source: 6969696,
@@ -404,10 +404,9 @@ module.exports = function ArboreanApparel(dispatch) {
                     unk2: 0,
                     unk3: 0
                 });
-        net.send('changer', changerId, STACKS[edited]);
-        presets[player].changers = [...presets[player].changers];
-        presetSave();
-        presets[player].changers = new Map(presets[player].changers);
+                net.send('changer', changerId, STACKS[edited]);
+        
+        for(let iter of ["chest", "height", "thighs", "size"]) presets[player].changers[iter] = STACKS[iter];
         lastCallDate = Date.now();
     }
 
@@ -421,12 +420,7 @@ module.exports = function ArboreanApparel(dispatch) {
             id: remChange
         });
         STACKS[name] = 4;
-        if(presets[player].changers == undefined) presets[player].changers = new Map();
-        presets[player].changers.set(name, 4);
         net.send('abnEnd', remChange);
-        presets[player].changers = [...presets[player].changers];
-        presetSave();
-        presets[player].changers = new Map(presets[player].changers);
         lastCallDate = Date.now();
     }
 
@@ -674,15 +668,13 @@ module.exports = function ArboreanApparel(dispatch) {
             setTimeout(function () {
                 dispatch.send('S_USER_EXTERNAL_CHANGE', 6, Object.assign({}, outfit, override)); //fixes CU issue
             }, 9000);
-
         }
-        if(presets[player].changers instanceof Array) presets[player].changers=new Map(presets[player].changers);
-        if(presets[player].changers instanceof Map && presets[player].changers.size!==0) {
-        	for(let iter of ["chest", "thighs", "height", "size"]) STACKS[iter] = presets[player].changers.get(iter);
-        	for (var [key, value] of presets[player].changers) {
-                if(key!="") sendChanger(key, value);
-            }
+        if(presets[player].changers) {
+        	for(let iter of ["chest", "height", "thighs", "size"]) changerSend(iter, STACKS[iter]);
         }
+    	else {
+    		presets[player].changers = {"chest":4, "thighs":4, "size":4, "height":4}
+    	}
     });
     
 
