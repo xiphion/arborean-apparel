@@ -21,10 +21,8 @@
 ***
 ### How to:
 
-- Download and install [Caali's Proxy](https://tinyurl.com/caalitera)
-- Download the prepackaged script from the [releases tab](https://github.com/iribae/arborean-apparel/releases)
-- Extract/paste contents of the .zip into your `tera-proxy` directory, overwriting when asked.
-- Start Tera-Proxy with the included ElectronStart.bat
+- Download and install [Caali's Proxy](https://discord.gg/dUNDDtw)
+- Install module from "more mods" tab in GUI Proxy
 
 I also recommend checking the options in `config.json`.
 
@@ -33,8 +31,6 @@ To open the UI type `aa open` into /proxy or `!aa open` into a normal chat. Ther
 
 #### Updating:
 This mod support auto-updating via [Caali's Proxy](https://discord.gg/dUNDDtw). 
-
-I also updating electron frequently to ensure the best comparability, which can be done by downloading the latest release from [this page](https://github.com/electron/electron/releases), and extracting it to `/Tera-Proxy/electron/dist`
 
 #### Online:
 By default Apparel will share your costume selections with other people using the module around you by connecting to an external server. If this doesn't sound like your cup of tea, simply edit config.json and change `online: true` to `false`.
@@ -49,7 +45,7 @@ The server is run by *a specific party* for free, if you want your own special s
 
 `Your version of Node.JS is too old to run tera-proxy. Version 9.0.0 or newer is required.` Please read the readme and download the proxy linked above.
 
-`TypeError: electron.BrowserWindow is not a constructor or cannot find module 'Electron'`: Proxy isn't running as electron, please make sure you have downloaded and overwritten (or made copies of) the files in the [full release](https://github.com/iribae/arborean-apparel/releases), and are running it with the supplied .bat file.
+`TypeError: electron.BrowserWindow is not a constructor or cannot find module 'Electron'`: Proxy isn't running as electron, please make sure you are running GUI proxy.
 
 `The system cannot find the path specified.`: You don't have electron installed in tera-proxy/node_modules, refer to the above.
 
@@ -74,6 +70,9 @@ The server is run by *a specific party* for free, if you want your own special s
  
 ## Update log:
 
+### December 19
+- Saving changers
+- Deleted releases, preparation to add to proxy GUI download list
 ### November 2
 - Images work again btw
 - I'm only updating this because I had something else to fix in the readme
