@@ -18,6 +18,7 @@ let STACKS = {
     thighs: 4,
     size: 4
 };
+let defaultChangerStacks = {"chest":4, "thighs":4, "size":4, "height":4};
 const CHANGERS = {
     chest: 7000012,
     dchest: 7000012,
@@ -420,6 +421,7 @@ module.exports = function ArboreanApparel(dispatch) {
             id: remChange
         });
         STACKS[name] = 4;
+        presets[player].changers[name] = 4;
         net.send('abnEnd', remChange);
         lastCallDate = Date.now();
     }
@@ -673,7 +675,7 @@ module.exports = function ArboreanApparel(dispatch) {
         	for(let iter of ["chest", "height", "thighs", "size"]) changerSend(iter, STACKS[iter]);
         }
     	else {
-    		presets[player].changers = {"chest":4, "thighs":4, "size":4, "height":4}
+    		presets[player].changers = defaultChangerStacks;
     	}
     });
     

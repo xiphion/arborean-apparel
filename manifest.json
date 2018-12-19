@@ -1,9 +1,9 @@
 {
 	"files": {
 		"LICENSE.md": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
-		"README.md": "510b1ec2ef9f8241b8b60b0ae240af9fe59b92e9eb9316854b1de3e41c580848",
-		"index.js": "d4d087670bbbaac1658ac03c776b0753b6d3a9af4b433ec0df862b0b96d4314a",
-		"module.json": "03565d0c50fab783893213414a88c51d8850103d316ffc63fa0bf18117d3198a",
+		"README.md": "3d2aea641a4d2d45e93862a1847a74d1a82129353d0c4ab8fb044cc09e473b28",
+		"index.js": "251da17f65c6372bc627ae58917d7bf6f1e46ba1743c6cd35383c6d3fd983dd5",
+		"module.json": "5e5e9ab7a3ad9a66fa1fab0af53205b385c78f1318a3a8033eb178bae1d02c1e",
 		"networking.js": "371607e77946a97b6c401925a13deafa26d987eabf85c0a2937f35fe87b3e3e6",
 		"node_modules/bignumber.js/CHANGELOG.md": "eecabce44a28b68082f4494f1e23880c253f7680f45b588153792c965627287b",
 		"node_modules/bignumber.js/LICENCE": "4b78c2aa65a7fef145f91a3496a194f7e2ac71c2d8cbdf1d721ee1fd418c5601",

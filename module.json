@@ -1,4 +1,17 @@
 {
 	"disableAutoUpdate": false,
-	"servers": ["https://raw.githubusercontent.com/iribae/arborean-apparel/master/"]
+	"disabled" : false,
+	"name": "Arborean Apparel",
+	"author": "Meishuu / Pentagon / Xiphion",
+	"description": "Freely change costumes, weapon enchants, mounts, changers, aesthetic abnormals and sky effects",
+	"version": "1.03",
+	"donationUrl": "https://ko-fi.com/xiphion",
+	"supportUrl": "https://discord.gg/BAJuRvs",
+	"servers": ["https://raw.githubusercontent.com/iribae/arborean-apparel/master/"],
+	"options": {
+		"niceName": "AA",
+		"guiName": "Arborean Apparel",
+		"loadOn": "versioncheck",
+		"reloadable": false
+	}
 }
