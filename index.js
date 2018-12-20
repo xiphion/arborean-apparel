@@ -672,7 +672,7 @@ module.exports = function ArboreanApparel(dispatch) {
             }, 9000);
         }
         if(presets[player].changers) {
-        	for(let iter of ["chest", "height", "thighs", "size"]) changerSend(iter, STACKS[iter]);
+        	for(let iter of ["chest", "height", "thighs", "size"]) if(STACKS[iter]!==4) changerSend(iter, STACKS[iter]);
         }
     	else {
     		presets[player].changers = defaultChangerStacks;
