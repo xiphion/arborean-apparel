@@ -647,6 +647,25 @@ module.exports = function ArboreanApparel(dispatch) {
         win.send('outfit', outfit, override);
     });
 
+    addHook('S_USER_APPEARANCE_CHANGE', 1, (packet) => {
+        if(packet.id == game.me.gameId) {
+            switch(packet.field) {
+                case 10:
+                    STACKS["chest"] = packet.value;
+                    presets[player].changers["chest"] = packet.value;
+                    defaultChangerStacks["chest"] = packet.value;
+                case 11:
+                    STACKS["height"] = packet.value;
+                    presets[player].changers["height"]=packet.value;
+                    defaultChangerStacks["height"] = packet.value;
+                case 12:
+                    STACKS["thighs"] = packet.value;
+                    presets[player].changers["thighs"]=packet.value;
+                    defaultChangerStacks["thighs"] = packet.value;
+            }
+        }
+    })
+
     addHook('C_LOAD_TOPO_FIN', 1, () => {
         if (presets[player].abnlist === undefined) {
             presets[player].abnlist = [];
@@ -672,7 +691,7 @@ module.exports = function ArboreanApparel(dispatch) {
             }, 9000);
         }
         if(presets[player].changers) {
-        	for(let iter of ["chest", "height", "thighs", "size"]) if(STACKS[iter]!==4) changerSend(iter, STACKS[iter]);
+        	for(let iter of ["chest", "height", "thighs", "size"]) if(STACKS[iter]!==defaultChangerStacks[iter]) changerSend(iter, STACKS[iter]);
         }
     	else {
     		presets[player].changers = defaultChangerStacks;
