@@ -145,11 +145,9 @@ module.exports = function ArboreanApparel(dispatch) {
         };
         saveConfig();
     }
-    if (config.configVersion !== "0.9" || config.serverHost !=="144.217.83.72") {
-        console.log("uwu");
+    if (config.configVersion !== "0.9") {
         Object.assign(config, {
-            "configVersion": "0.9",
-            "serverHost" : "144.217.83.72"
+            "configVersion": "0.9"
         });
         saveConfig();
     }
