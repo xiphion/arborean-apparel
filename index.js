@@ -78,6 +78,9 @@ function dye2int({
 }
 module.exports = function ArboreanApparel(dispatch) {
 
+	if(!global.TeraProxy.GUIMode) {
+		throw new Error("This module requires proxy running in GUI mode");
+	}
     const game = dispatch.game;
     const command = dispatch.command;
     const net = new Networking();
