@@ -5,7 +5,7 @@ const path = require('path');
 
 const CHANNEL_NAME = 'arborean-apparel'
 
-const debug = false
+const debug = true;
 
 try {
     var config = require('./config.json');
@@ -43,6 +43,7 @@ class Window extends events.EventEmitter {
         this.window.webContents.on('did-finish-load', () => {
             this.emit('opened')
         })
+        this.window.openDevTools();
 
         this.window.on('closed', () => {
             this.emit('closed')

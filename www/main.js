@@ -4,7 +4,7 @@ const {
     ipcRenderer,
     remote
 } = require('electron');
-const debug = true;
+const debug = false;
 
 function topshitbar() {
     document.getElementById("min-btn").addEventListener("click", function (e) {
@@ -21,6 +21,8 @@ document.onreadystatechange = function () {
         topshitbar();
     }
 };
+let suggestions;
+let aes;
 try {
     suggestions = require('./mounts.json');
 } catch (e) {
@@ -603,6 +605,9 @@ jQuery(($) => {
             offset.left += $dye.width() - 280;
             $picker.offset(offset);
         }
+        let vpw;
+        let memerey;
+        let vph;
         vpw = $(window).width(); //delete this!!!
         memerey = $(window).height();
         vph = (memerey - 250);
