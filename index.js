@@ -456,7 +456,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         //override = presets[player];
         presetUpdate();
-        dispatch.send('S_USER_EXTERNAL_CHANGE', 6, Object.assign({},
+        dispatch.send('S_USER_EXTERNAL_CHANGE', 7, Object.assign({},
             outfit, override));
         net.send('outfit', override); // TODO
     });
@@ -614,7 +614,7 @@ module.exports = function ArboreanApparel(dispatch) {
         dispatch.hook(packetName, packetVersion, func);
     }
     // function enable() {
-    addHook('S_LOGIN', 10, () => {
+    addHook('S_LOGIN', 12, () => {
         ingame = true;
         player = game.me.name;
         model = game.me.templateId - 10101;
@@ -687,7 +687,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         if (presets[player] && presets[player].id !== 0) {
             setTimeout(function () {
-                dispatch.send('S_USER_EXTERNAL_CHANGE', 6, Object.assign({}, outfit, override)); //fixes CU issue
+                dispatch.send('S_USER_EXTERNAL_CHANGE', 7, Object.assign({}, outfit, override)); //fixes CU issue
             }, 9000);
         }
         if(presets[player].changers) {
@@ -785,7 +785,7 @@ module.exports = function ArboreanApparel(dispatch) {
         return true;
     });
     // sorry for the mess
-    addHook('S_USER_EXTERNAL_CHANGE', 6, (event) => {
+    addHook('S_USER_EXTERNAL_CHANGE', 7, (event) => {
         // self
         if (event.gameId === game.me.gameId) {
             outfit = Object.assign({}, event);
@@ -952,7 +952,7 @@ module.exports = function ArboreanApparel(dispatch) {
                 enable: true
             };
             const outfit = Object.assign(base, user.outfit, user.override);
-            dispatch.send('S_USER_EXTERNAL_CHANGE', 6, outfit);
+            dispatch.send('S_USER_EXTERNAL_CHANGE', 7, outfit);
         }
     });
     net.on('text', (id, dbid, string) => {
