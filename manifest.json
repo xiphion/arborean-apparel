@@ -2,7 +2,7 @@
 	"files": {
 		"LICENSE.md": "589ed823e9a84c56feb95ac58e7cf384626b9cbf4fda2a907bc36e103de1bad2",
 		"README.md": "3d2aea641a4d2d45e93862a1847a74d1a82129353d0c4ab8fb044cc09e473b28",
-		"index.js": "d942ad10772fafaf6287dc82fee72789e15661a69b2cef285202cabec6983d2d",
+		"index.js": "f4ae6402a2a60edf48054d078c208921fa4ea4da2ec487d15c4cea58c8ae3253",
 		"module.json": "5e5e9ab7a3ad9a66fa1fab0af53205b385c78f1318a3a8033eb178bae1d02c1e",
 		"networking.js": "371607e77946a97b6c401925a13deafa26d987eabf85c0a2937f35fe87b3e3e6",
 		"node_modules/bignumber.js/CHANGELOG.md": "eecabce44a28b68082f4494f1e23880c253f7680f45b588153792c965627287b",
