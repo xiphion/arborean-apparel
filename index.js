@@ -735,7 +735,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
     });
 
-    addHook('S_MOUNT_VEHICLE', 2, filter: {fake: null} (event) => {
+    addHook('S_MOUNT_VEHICLE', 2, filter: {fake: null}, (event) => {
         if (event.gameId === game.me.gameId && (presets[player] &&
             presets[player].mountId && presets[player].mountId !==
             "696969")) {
