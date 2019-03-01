@@ -607,14 +607,11 @@ module.exports = function ArboreanApparel(dispatch) {
     /* ----------- *
      * GAME EVENTS *
      * ----------- */
-    /* addHook('C_CHECK_VERSION', 1, () => {
+    /* dispatch.hook('C_CHECK_VERSION', 1, () => {
          enable();
      });*/
-    function addHook(packetName, packetVersion, func) {
-        dispatch.hook(packetName, packetVersion, func);
-    }
     // function enable() {
-    addHook('S_LOGIN', 12, () => {
+    dispatch.hook('S_LOGIN', 12, () => {
         ingame = true;
         player = game.me.name;
         model = game.me.templateId - 10101;
@@ -647,7 +644,7 @@ module.exports = function ArboreanApparel(dispatch) {
         win.send('outfit', outfit, override);
     });
 
-    addHook('S_USER_APPEARANCE_CHANGE', 1, (packet) => {
+    dispatch.hook('S_USER_APPEARANCE_CHANGE', 1, (packet) => {
         if(packet.id == game.me.gameId) {
             switch(packet.field) {
                 case 10:
@@ -666,7 +663,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
     })
 
-    addHook('C_LOAD_TOPO_FIN', 1, () => {
+    dispatch.hook('C_LOAD_TOPO_FIN', 1, () => {
         if (presets[player].abnlist === undefined) {
             presets[player].abnlist = [];
         } else {
@@ -700,11 +697,11 @@ module.exports = function ArboreanApparel(dispatch) {
     
 
     //Marrow brooch handling thanks Cosplayer, kasea please die
-    addHook('S_UNICAST_TRANSFORM_DATA', 'raw', () => {
+    dispatch.hook('S_UNICAST_TRANSFORM_DATA', 'raw', () => {
         return false;
     });
 
-    addHook('S_USER_WEAPON_APPEARANCE_CHANGE', 2, event => {
+    dispatch.hook('S_USER_WEAPON_APPEARANCE_CHANGE', 2, event => {
         if (event.weapon != 202100) {
             if (event.gameId===game.me.gameId) {
                 if (presets[player].styleWeapon) {
@@ -735,7 +732,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
     });
 
-    addHook('S_MOUNT_VEHICLE', 2, {filter: {fake: null}}, (event) => {
+    dispatch.hook('S_MOUNT_VEHICLE', 2, {filter: {fake: null}}, (event) => {
         if (event.gameId === game.me.gameId && (presets[player] &&
             presets[player].mountId && presets[player].mountId !==
             "696969")) {
@@ -750,7 +747,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         return true;
     });
-    addHook('S_GET_USER_LIST', 14, event => {
+    dispatch.hook('S_GET_USER_LIST', 14, event => {
         win.close();
         override = {};
         for (let index in event.characters) {
@@ -762,7 +759,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
         return true;
     });
-    addHook('S_SPAWN_USER', 13, (event) => {
+    dispatch.hook('S_SPAWN_USER', 13, (event) => {
         const user = networked.get(id2str(event.gameId));
         if (!user || user.override === null)
             return;
@@ -785,7 +782,7 @@ module.exports = function ArboreanApparel(dispatch) {
         return true;
     });
     // sorry for the mess
-    addHook('S_USER_EXTERNAL_CHANGE', 7, (event) => {
+    dispatch.hook('S_USER_EXTERNAL_CHANGE', 7, (event) => {
         // self
         if (event.gameId === game.me.gameId) {
             outfit = Object.assign({}, event);
@@ -820,7 +817,7 @@ module.exports = function ArboreanApparel(dispatch) {
         }
     });
 
-    addHook('S_ITEM_CUSTOM_STRING', 2, (event) => {
+    dispatch.hook('S_ITEM_CUSTOM_STRING', 2, (event) => {
         const user = networked.get(id2str(event.gameId));
         if (user && user.override.costumeText !== null) {
             customStrings: [{ //idk why this here tbh fam it does nothing
@@ -828,7 +825,7 @@ module.exports = function ArboreanApparel(dispatch) {
             }];
         }
     });
-    addHook('S_SOCIAL', 1, (event) => {
+    dispatch.hook('S_SOCIAL', 1, (event) => {
         if ([31, 32, 33].indexOf(event.animation) === -1)
             return;
         if (event.target === game.me.gameId) {
@@ -841,9 +838,9 @@ module.exports = function ArboreanApparel(dispatch) {
         }
     });
 
-    addHook('S_ABNORMALITY_BEGIN', 3 , setCrystalbind);
-    addHook('S_ABNORMALITY_REFRESH', 1, setCrystalbind);
-    addHook('S_ABNORMALITY_END', 1, (event) => {
+    dispatch.hook('S_ABNORMALITY_BEGIN', 3 , setCrystalbind);
+    dispatch.hook('S_ABNORMALITY_REFRESH', 1, setCrystalbind);
+    dispatch.hook('S_ABNORMALITY_END', 1, (event) => {
         if (event.target === game.me.gameId ) {
             if (event.id === 4600 || event.id === 4610) {
                 crystalbind = {
@@ -858,7 +855,7 @@ module.exports = function ArboreanApparel(dispatch) {
             }
         }
     });
-    addHook('S_RETURN_TO_LOBBY', 1, () => {
+    dispatch.hook('S_RETURN_TO_LOBBY', 1, () => {
         ingame = false;
     });
     // }
