@@ -611,7 +611,7 @@ module.exports = function ArboreanApparel(dispatch) {
          enable();
      });*/
     // function enable() {
-    dispatch.hook('S_LOGIN', 12, () => {
+    dispatch.hook('S_LOGIN', 13, () => {
         ingame = true;
         player = game.me.name;
         model = game.me.templateId - 10101;
