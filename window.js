@@ -29,7 +29,11 @@ class Window extends events.EventEmitter {
             height: 515,
             width: 580,
             transparent: config.transparent,
-            frame: false
+            frame: false,
+            webPreferences: {
+                nodeIntegration: true,
+                devTools: false
+            }
         })
 
         const listener = (event, ...args) => {
